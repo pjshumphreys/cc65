@@ -57,6 +57,7 @@
 /* cc65 */
 #include "asmcode.h"
 #include "compile.h"
+#include "codegen.h"
 #include "codeopt.h"
 #include "error.h"
 #include "global.h"
@@ -919,6 +920,10 @@ int main (int argc, char* argv[])
 
                 case 'd':
                     OptDebug (Arg, 0);
+                    break;
+
+                case 'e':
+                    SetReturnJumpLabel (GetArg (&I, 2));
                     break;
 
                 case 'h':

@@ -187,6 +187,9 @@ int push (unsigned flags);
 unsigned sizeofarg (unsigned flags);
 /* Return the size of a function argument type that is encoded in flags */
 
+void SetReturnJumpLabel (const char* Name);
+/* Sets the name of a label to jump to instead of generating a jmp instruction. */
+
 
 
 /*****************************************************************************/

@@ -64,6 +64,17 @@
 
 
 /*****************************************************************************/
+/*                                   Data                                    */
+/*****************************************************************************/
+
+
+
+/* Name of the output file. Dynamically allocated and read only. */
+const char* ReturnJumpLabel = 0;
+
+
+
+/*****************************************************************************/
 /*                                  Helpers                                  */
 /*****************************************************************************/
 
@@ -253,6 +264,14 @@ void g_segname (segment_t Seg)
 /*****************************************************************************/
 /*                                   Code                                    */
 /*****************************************************************************/
+
+
+
+void SetReturnJumpLabel (const char* Name)
+/* Sets the name of a label to jump to instead of generating a jmp instruction. */
+{
+    ReturnJumpLabel = Name;
+}
 
 
 
@@ -480,8 +499,17 @@ void g_leave (void)
 
     }
 
-    /* Add the final rts */
-    AddCodeLine ("rts");
+    /* If a return jump label has been set, generate a jmp istruction to it istead of an rts */
+    if (ReturnJumpLabel != 0) {
+
+        AddCodeLine ("jmp %s", ReturnJumpLabel);
+
+    } else {
+
+        /* Add the final rts */
+        AddCodeLine ("rts");
+
+    }
 }
 
 
